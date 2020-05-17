@@ -149,3 +149,6 @@ proc deleteLater*(self: QObject) =
 proc objectNameChanged*(self: QObject, objectName: string) {.signal.} = 
   ## Emit the object name changed signal
   self.emit("objectNameChanged", [newQVariant(objectName)])
+
+proc vptr*(self: QObject): DosQObject =
+  result = self.vptr
