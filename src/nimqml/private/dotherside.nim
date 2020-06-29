@@ -30,6 +30,7 @@ type
   DosQAbstractItemModel = distinct pointer
   DosQAbstractTableModel = distinct pointer
   DosQAbstractListModel = distinct pointer
+  DosQClipBoard = distinct pointer
 
   DosParameterDefinition = object
     name: cstring
@@ -131,6 +132,7 @@ proc dos_qapplication_exec() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_quit() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_icon(filename: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_delete() {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qapplication_clipboard() {.cdecl, dynlib: dynLibName, importc.}
 
 # QGuiApplication
 proc dos_qguiapplication_create() {.cdecl, dynlib: dynLibName, importc.}
