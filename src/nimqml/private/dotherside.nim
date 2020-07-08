@@ -30,6 +30,7 @@ type
   DosQAbstractItemModel = distinct pointer
   DosQAbstractTableModel = distinct pointer
   DosQAbstractListModel = distinct pointer
+  AudioRecorder = pointer
 
   DosParameterDefinition = object
     name: cstring
@@ -132,6 +133,12 @@ proc dos_qapplication_quit() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_icon(filename: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_delete() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_clipboard_setText(content: cstring) {.cdecl, dynlib: dynLibName, importc.}
+
+# QAudioRecorder
+proc dos_qapplication_audio_recorder(): AudioRecorder {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qapplication_audio_recorder_record(audioRecorder: AudioRecorder) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qapplication_audio_recorder_stop(audioRecorder: AudioRecorder) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qapplication_audio_recorder_error(audioRecorder: AudioRecorder): cstring {.cdecl, dynlib: dynLibName, importc.}
 
 # QGuiApplication
 proc dos_qguiapplication_create() {.cdecl, dynlib: dynLibName, importc.}

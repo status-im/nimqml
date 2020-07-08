@@ -17,6 +17,18 @@ proc icon*(application: QApplication, filename: string) =
 proc setClipboardText*(text: string = "") =
   dos_qapplication_clipboard_setText(text.cstring)
 
+proc newAudioRecording*(): AudioRecorder =
+  dos_qapplication_audio_recorder()
+
+proc startRecording*(audioRecorder: AudioRecorder) =
+  dos_qapplication_audio_recorder_record(audioRecorder)
+
+proc stopRecording*(audioRecorder: AudioRecorder) =
+  dos_qapplication_audio_recorder_stop(audioRecorder)
+
+proc recordingError*(audioRecorder: AudioRecorder): cstring =
+  dos_qapplication_audio_recorder_error(audioRecorder)
+
 proc delete*(application: QApplication) =
   ## Delete the given QApplication
   if application.deleted:
