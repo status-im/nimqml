@@ -152,3 +152,6 @@ proc objectNameChanged*(self: QObject, objectName: string) {.signal.} =
 
 proc vptr*(self: QObject): DosQObject =
   result = self.vptr
+
+proc signalConnect*(sender: QObject, signal: string, receiver: QObject, slot: string, signalType: int = 0) =
+  discard dos_qobject_connect_static(sender.vptr, ("2" & signal).cstring, receiver.vptr, ("1" & slot).cstring, signalType.cint)

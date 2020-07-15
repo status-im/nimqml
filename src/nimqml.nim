@@ -18,6 +18,7 @@ include "nimqml/private/nimqmlmacros.nim"
 include "nimqml/private/dotherside.nim"
 include "nimqml/private/nimqmltypes.nim"
 include "nimqml/private/constructors.nim"
+include "nimqml/private/qnetworkconfigurationmanager.nim"
 include "nimqml/private/qvariant.nim"
 include "nimqml/private/lambdainvoker.nim"
 include "nimqml/private/qmetaobjectconnection.nim"
@@ -36,6 +37,7 @@ include "nimqml/private/qabstractlistmodel.nim"
 include "nimqml/private/qabstracttablemodel.nim"
 include "nimqml/private/qresource.nim"
 include "nimqml/private/qdeclarative.nim"
+
 
 proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   var dosqobj = cast[DosQObject](receiver)

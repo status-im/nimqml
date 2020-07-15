@@ -188,6 +188,7 @@ proc dos_qobject_connect_lambda_static(sender: DosQObject, senderFunc: cstring, 
 proc dos_qobject_connect_lambda_with_context_static(sender: DosQObject, senderFunc: cstring, context: DosQObject, callback: DosQObjectConnectLambdaCallback, data: pointer, connectionType: cint): DosQMetaObjectConnection {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qobject_disconnect_static(sender: DosQObject, senderFunc: cstring, receiver: DosQObject, receiverFunc: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qobject_disconnect_with_connection_static(connection: DosQMetaObjectConnection) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qobject_signal_connect(sender: DosQObject, signalName: cstring, receiver: DosQObject, slot: cstring, signalType: cint) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qobject_delete(qobject: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qobject_deleteLater(qobject: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_signal_macro*(name: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
@@ -215,6 +216,10 @@ proc dos_signal(vptr: pointer, signal: cstring, slot: cstring) {.cdecl, dynlib: 
 proc dos_qurl_create(url: cstring, parsingMode: cint): DosQUrl {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qurl_delete(vptr: DosQUrl) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qurl_to_string(vptr: DosQUrl): cstring {.cdecl, dynlib: dynLibName, importc.}
+
+# QNetworkConfigurationManager
+proc dos_qncm_create(): DosQObject {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qncm_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
 
 # QQuickView
 proc dos_qquickview_create(): DosQQuickView {.cdecl, dynlib: dynLibName, importc.}
