@@ -14,6 +14,8 @@ template debugMsg(typeName: string, procName: string) =
   when defined(debugNimQml):
     debugMsg(typeName & ": " & procName)
 
+import os
+
 include "nimqml/private/nimqmlmacros.nim"
 include "nimqml/private/dotherside.nim"
 include "nimqml/private/nimqmltypes.nim"
@@ -44,5 +46,6 @@ proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   if(dosqobj.isNil == false):
     dos_signal(receiver, signal, slot)
 
-proc image_resizer*(imagePath: string, maxSize: int = 2000): string =
-  result = $dos_image_resizer(imagePath.cstring, maxSize.cint)
+proc image_resizer*(imagePath: string, maxSize: int = 2000, tmpDir: string): string =
+  discard existsOrCreateDir(tmpDir)
+  result = $dos_image_resizer(imagePath.cstring, maxSize.cint, tmpDir)
