@@ -111,6 +111,8 @@ type
 
   QNetworkConfigurationManager* = ref object of QObject
 
+  QAudioRecorder* = ref object of QObject
+
   QUrlParsingMode*{.pure, size: sizeof(cint).} = enum
     Tolerant = 0.cint
     Strict = 1.cint

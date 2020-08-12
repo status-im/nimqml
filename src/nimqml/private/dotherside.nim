@@ -209,6 +209,12 @@ proc dos_qurl_to_string(vptr: DosQUrl): cstring {.cdecl, dynlib: dynLibName, imp
 proc dos_qncm_create(): DosQObject {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qncm_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
 
+# QAudioRecorder
+proc dos_qaudiorecorder_create(tmpDirPath: cstring): DosQObject {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qaudiorecorder_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qaudiorecorder_start(vptr: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qaudiorecorder_stop(vptr: DosQObject):cstring {.cdecl, dynlib: dynLibName, importc.}
+
 # QQuickView
 proc dos_qquickview_create(): DosQQuickView {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qquickview_delete(view: DosQQuickView) {.cdecl, dynlib: dynLibName, importc.}
