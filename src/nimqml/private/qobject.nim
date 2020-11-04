@@ -35,6 +35,29 @@ method onSlotCalled*(self: QObject, slotName: string, arguments: openarray[QVari
   ## Called from the dotherside library when a slot is called from Qml.
   discard()
 
+proc burnMem*(p: pointer, size: Natural) =
+  var sp {.volatile.} = cast[ptr byte](p)
+  var c = size
+  if not isNil(sp):
+    zeroMem(p, size)
+    while c > 0:
+      sp[] = 0
+      sp = cast[ptr byte](cast[uint](sp) + 1)
+      dec(c)
+
+proc burnArray*[T](a: var openarray[T]) {.inline.} =
+  if len(a) > 0:
+    burnMem(addr a[0], len(a) * sizeof(T))
+
+template burnMem*[T](a: var seq[T]) =
+  burnArray(a)
+
+template burnMem*[A, B](a: var array[A, B]) =
+  burnArray(a)
+
+proc burnMem*[T](a: var T) {.inline.} =
+  burnMem(addr a, sizeof(T))
+
 proc qobjectCallback(qobjectPtr: pointer, slotNamePtr: DosQVariant, dosArgumentsLength: cint, dosArguments: ptr DosQVariantArray) {.cdecl, exportc.} =
   ## Called from the dotherside library for invoking a slot
   let qobject = cast[QObject](qobjectPtr)
@@ -43,9 +66,12 @@ proc qobjectCallback(qobjectPtr: pointer, slotNamePtr: DosQVariant, dosArguments
   let slotName = newQVariant(slotNamePtr, Ownership.Clone) # Don't take ownership but clone
   defer: slotName.delete
   # Retrieve arguments
-  let arguments = toQVariantSequence(dosArguments, dosArgumentsLength, Ownership.Clone) # Don't take ownership but clone
-  defer: arguments.delete
+  var arguments = toQVariantSequence(dosArguments, dosArgumentsLength, Ownership.Clone) # Don't take ownership but clone
+  defer:
+    arguments.delete
+    burnMem(arguments)
   # Forward to args to the slot
+  
   qobject.onSlotCalled(slotName.stringVal, arguments)
   # Update the slot return value
   dos_qvariant_assign(dosArguments[0], arguments[0].vptr)
