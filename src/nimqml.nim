@@ -31,6 +31,7 @@ include "nimqml/private/qabstractlistmodel.nim"
 include "nimqml/private/qabstracttablemodel.nim"
 include "nimqml/private/qresource.nim"
 include "nimqml/private/qdeclarative.nim"
+include "nimqml/private/qquickstyle.nim"
 include "nimqml/private/nimqmlmacros.nim"
 
 
