@@ -314,3 +314,4 @@ proc dos_qurl_replaceHostAndAddPath(url: cstring, newScheme: cstring, newHost: c
 
 # QQuickStyle
 proc dos_qquickstyle_set_style(style: cstring) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qquickstyle_set_fallback_style(style: cstring) {.cdecl, dynlib: dynLibName, importc.}
