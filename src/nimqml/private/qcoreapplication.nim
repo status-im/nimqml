@@ -8,3 +8,9 @@ proc applicationDirPath*(app: QCoreApplication): string =
   let str = dos_qcoreapplication_application_dir_path()
   result = $str
   dos_chararray_delete(str)
+
+proc processEvents*(flags: QEventLoopFlag) =
+  dos_qcoreapplication_process_events(flags)
+
+proc processEvents*(flags: QEventLoopFlag, timeOut: int) =
+  dos_qcoreapplication_process_events_timed(flags, timeOut)

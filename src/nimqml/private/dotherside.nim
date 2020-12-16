@@ -125,6 +125,8 @@ proc dos_chararray_delete(str: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qcoreapplication_application_dir_path(): cstring {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_enable_hdpi() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_initialize_opengl() {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qcoreapplication_process_events(flag: cint) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qcoreapplication_process_events_timed(flags, ms: cint) {.cdecl, dynlib: dynLibName, importc.}
 
 # QApplication
 proc dos_qapplication_create(appName: cstring) {.cdecl, dynlib: dynLibName, importc.}

@@ -44,6 +44,12 @@ type
   QResource* = ref object of RootObj ## \
     # A QResource
 
+  QEventLoopFlag*{.pure, size: sizeof(cint).} = enum
+    ProcessAllEvents = 0.cint,
+    ExcludeUserInputEvents = 1.cint,
+    ProcessExcludeSocketNotifiers = 2.cint,
+    ProcessAllEventsWaitForMoreEvents = 3.cint
+
   QtItemFlag*{.pure, size: sizeof(cint).} = enum ## \
     ## Item flags
     ##
