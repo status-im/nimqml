@@ -10,7 +10,7 @@ proc applicationDirPath*(app: QCoreApplication): string =
   dos_chararray_delete(str)
 
 proc processEvents*(flags: QEventLoopFlag) =
-  dos_qcoreapplication_process_events(ord(flags))
+  dos_qcoreapplication_process_events(cint(ord(flags)))
 
 proc processEvents*(flags: QEventLoopFlag, timeOut: int) =
-  dos_qcoreapplication_process_events_timed(ord(flags), timeOut)
+  dos_qcoreapplication_process_events_timed(cint(ord(flags)), timeOut)
