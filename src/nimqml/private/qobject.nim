@@ -74,3 +74,6 @@ proc vptr*(self: QObject): DosQObject =
 
 proc signalConnect*(sender: QObject, signal: string, receiver: QObject, slot: string, signalType: int = 0) =
   dos_qobject_signal_connect(sender.vptr, ("2" & signal).cstring, receiver.vptr, ("1" & slot).cstring, signalType.cint)
+
+proc signalDisconnect*(sender: QObject, signal: string, receiver: QObject, slot: string) =
+  dos_qobject_signal_disconnect(sender.vptr, ("2" & signal).cstring, receiver.vptr, ("1" & slot).cstring)
