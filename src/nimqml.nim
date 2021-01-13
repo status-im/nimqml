@@ -57,3 +57,6 @@ proc url_host*(host: string): string =
 
 proc url_replaceHostAndAddPath*(url: string, newHost: string, protocol: string = "", pathPrefix: string = ""): string =
   result = $(dos_qurl_replaceHostAndAddPath(url.cstring, protocol.cstring, newHost.cstring, pathPrefix.cstring))
+
+proc createWebEngineRequestInterceptor*() =
+  dos_webengineprofile_interceptor()
