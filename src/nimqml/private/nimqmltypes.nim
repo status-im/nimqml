@@ -121,6 +121,11 @@ type
     NotAccessible = 0.cint,
     Accessible = 1.cint
 
+  QImageProvider* = ref object of RootObj
+    vptr: DosQQuickImageProvider
+  
+  QIPFSAsyncImageProvider* = ref object of QImageProvider ## \
+  
   QUrlParsingMode*{.pure, size: sizeof(cint).} = enum
     Tolerant = 0.cint
     Strict = 1.cint

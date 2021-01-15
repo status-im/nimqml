@@ -32,7 +32,8 @@ type
   DosQAbstractItemModel = distinct pointer
   DosQAbstractTableModel = distinct pointer
   DosQAbstractListModel = distinct pointer
-  
+  DosQQuickImageProvider = distinct pointer
+
   DosParameterDefinition = object
     name: cstring
     metaType: cint
@@ -119,6 +120,7 @@ proc isNil(x: DosQUrl): bool = x.pointer.isNil
 proc isNil(x: DosQQuickView): bool = x.pointer.isNil
 proc isNil(x: DosQHashIntByteArray): bool = x.pointer.isNil
 proc isNil(x: DosQModelIndex): bool = x.pointer.isNil
+proc isNil(x: DosQQuickImageProvider): bool = x.pointer.isNil
 
 # CharArray
 proc dos_chararray_delete(str: cstring) {.cdecl, dynlib: dynLibName, importc.}
@@ -320,3 +322,7 @@ proc dos_escape_html(input: cstring): cstring {.cdecl, dynlib: dynLibName, impor
 proc dos_qurl_fromUserInput(input: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qurl_host(host: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qurl_replaceHostAndAddPath(url: cstring, newScheme: cstring, newHost: cstring, pathPrefix: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
+
+proc dos_qqmlapplicationengine_addImageProvider(engine: DosQQmlApplicationEngine, name: cstring, provider: DosQQuickImageProvider) {.cdecl dynlib: dynLibName, importc.}
+proc dos_ipfsasyncimageprovider_create(ipfsTmpDir, gateway: cstring): DosQQuickImageProvider {.cdecl dynlib: dynLibName, importc.}
+
