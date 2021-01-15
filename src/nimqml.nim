@@ -15,6 +15,7 @@ import os
 include "nimqml/private/dotherside.nim"
 include "nimqml/private/nimqmltypes.nim"
 include "nimqml/private/qmetaobject.nim"
+include "nimqml/private/imageprovider.nim"
 include "nimqml/private/qnetworkconfigurationmanager.nim"
 include "nimqml/private/qvariant.nim"
 include "nimqml/private/qobject.nim"
