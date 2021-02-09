@@ -42,7 +42,8 @@ proc newQAbstractTableModel*(): QAbstractTableModel =
 
 ############# QVariant #############
 proc setup*(variant: QVariant)
-proc setup*(variant: QVariant, value: int)
+proc setup*(variant: QVariant, value: int | int32 | int64)
+proc setup*(variant: QVariant, value: uint | uint32 | uint64)
 proc setup*(variant: QVariant, value: bool)
 proc setup*(variant: QVariant, value: string)
 proc setup*(variant: QVariant, value: QObject)
@@ -57,7 +58,7 @@ proc newQVariant*(): QVariant =
   new(result, delete)
   result.setup()
 
-proc newQVariant*(value: int): QVariant =
+proc newQVariant*(value: int | int32 | int64 | uint | uint32 | uint64): QVariant =
   ## Return a new QVariant given a cint
   new(result, delete)
   result.setup(value)
