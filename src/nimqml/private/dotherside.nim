@@ -220,6 +220,9 @@ proc dos_qqmlnetworkaccessmanagerfactory_create(tmpPath: cstring): DosQQNetworkA
 proc dos_qqmlnetworkaccessmanager_clearconnectioncache(vptr: DosQQNetworkAccessManager) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qqmlnetworkaccessmanager_setnetworkaccessible(vptr: DosQQNetworkAccessManager, accessible: cint) {.cdecl, dynlib: dynLibName, importc.}
 
+# QQmlDebuggingEnabler
+proc dos_qqmldebuggingenabler_create(portNumber: cint) {.cdecl, dynlib: dynLibName, importc.}
+
 # QQuickView
 proc dos_qquickview_create(): DosQQuickView {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qquickview_delete(view: DosQQuickView) {.cdecl, dynlib: dynLibName, importc.}
