@@ -147,5 +147,7 @@ type
     lock: Lock
     lambdas: Table[int, LambdaInvokerProc]
 
+  SingleInstance* = ref object of QObject
+
 const
   UserRole* = 0x100
