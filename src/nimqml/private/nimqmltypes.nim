@@ -149,5 +149,9 @@ type
 
   SingleInstance* = ref object of QObject
 
+  StatusEventObject* = ref object of RootObj ## \
+    ## A StatusEventObject
+    vptr: DosStatusEventObject
+    
 const
   UserRole* = 0x100

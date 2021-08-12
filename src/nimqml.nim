@@ -40,6 +40,7 @@ include "nimqml/private/qabstracttablemodel.nim"
 include "nimqml/private/qresource.nim"
 include "nimqml/private/qdeclarative.nim"
 include "nimqml/private/singleinstance.nim"
+include "nimqml/private/status/statusevent.nim"
 
 
 proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =

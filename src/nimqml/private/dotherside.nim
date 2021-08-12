@@ -31,7 +31,8 @@ type
   DosQAbstractTableModel = distinct pointer
   DosQAbstractListModel = distinct pointer
   DosQMetaObjectConnection = distinct pointer
-
+  DosStatusEventObject = distinct pointer
+  
   DosParameterDefinition = object
     name: cstring
     metaType: cint
@@ -137,7 +138,7 @@ proc dos_qapplication_quit() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_icon(filename: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_delete() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qapplication_clipboard_setText(content: cstring) {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qapplication_installEventFilter(engine: DosQQmlApplicationEngine) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qapplication_installEventFilter(engine: DosStatusEventObject) {.cdecl, dynlib: dynLibName, importc.}
 
 # QGuiApplication
 proc dos_qguiapplication_create() {.cdecl, dynlib: dynLibName, importc.}
@@ -145,7 +146,7 @@ proc dos_qguiapplication_exec() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_quit() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_icon(filename: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_delete() {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qguiapplication_installEventFilter(engine: DosQQmlApplicationEngine) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qguiapplication_installEventFilter(engine: DosStatusEventObject) {.cdecl, dynlib: dynLibName, importc.}
 
 # QQmlContext
 proc dos_qqmlcontext_setcontextproperty(context: DosQQmlContext, propertyName: cstring, propertyValue: DosQVariant) {.cdecl, dynlib: dynLibName, importc.}
@@ -351,3 +352,8 @@ proc dos_qurl_replaceHostAndAddPath(url: cstring, newScheme: cstring, newHost: c
 proc dos_singleinstance_create(uniqueName: cstring): DosQObject {.cdecl, dynlib: dynLibName, importc.}
 proc dos_singleinstance_isfirst(vptr: DosQObject): bool {.cdecl, dynlib: dynLibName, importc.}
 proc dos_singleinstance_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
+
+# DosStatusEventObject
+proc dos_statusevent_create_showAppEvent(engine: DosQQmlApplicationEngine): DosStatusEventObject {.cdecl, dynlib: dynLibName, importc.}
+proc dos_statusevent_create_osThemeEvent(engine: DosQQmlApplicationEngine): DosStatusEventObject {.cdecl, dynlib: dynLibName, importc.}
+proc dos_statusevent_delete(vptr: DosStatusEventObject) {.cdecl, dynlib: dynLibName, importc.}
