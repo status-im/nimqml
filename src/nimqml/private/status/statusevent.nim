@@ -5,6 +5,9 @@ proc setupDockShowAppEventObject(self: StatusEventObject, engine: QQmlApplicatio
 proc setupOSThemeEventObject(self: StatusEventObject, engine: QQmlApplicationEngine) =
   self.vptr = dos_statusevent_create_osThemeEvent(engine.vptr)
 
+proc setupUrlSchemeEventObject(self: StatusEventObject) =
+  self.vptr = dos_statusevent_create_urlSchemeEvent()
+
 proc delete*(self: StatusEventObject) =
   dos_statusevent_delete(self.vptr)
   self.vptr.resetToNil
@@ -16,3 +19,7 @@ proc newStatusDockShowAppEventObject*(engine: QQmlApplicationEngine): StatusEven
 proc newStatusOSThemeEventObject*(engine: QQmlApplicationEngine): StatusEventObject =
   new(result, delete)
   result.setupOSThemeEventObject(engine)
+
+proc newStatusUrlSchemeEventObject*(): StatusEventObject =
+  new(result, delete)
+  result.setupUrlSchemeEventObject()

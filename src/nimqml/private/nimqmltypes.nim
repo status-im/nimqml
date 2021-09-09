@@ -132,9 +132,7 @@ type
 
   SingleInstance* = ref object of QObject
 
-  StatusEventObject* = ref object of RootObj ## \
-    ## A StatusEventObject
-    vptr: DosStatusEventObject
+  StatusEventObject* = ref object of QObject ## \
 
   StatusOSNotificationObject* = ref object of QObject 
     
