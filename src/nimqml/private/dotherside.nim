@@ -16,6 +16,7 @@ type
   NimQAbstractTableModel = pointer
   DosQMetaObject = distinct pointer
   DosQObject = distinct pointer
+  DosJsonObject = pointer
   DosQQNetworkAccessManagerFactory = pointer
   DosQQNetworkAccessManager = distinct DosQObject
   DosQObjectWrapper = distinct pointer
@@ -166,6 +167,7 @@ proc dos_qvariant_create_ulonglong(value: culonglong): DosQVariant {.cdecl, dynl
 proc dos_qvariant_create_bool(value: bool): DosQVariant {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qvariant_create_string(value: cstring): DosQVariant {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qvariant_create_qobject(value: DosQObject): DosQVariant {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qvariant_create_jsonobject(value: DosJsonObject): DosQVariant {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qvariant_create_qvariant(value: DosQVariant): DosQVariant {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qvariant_create_float(value: cfloat): DosQVariant {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qvariant_create_double(value: cdouble): DosQVariant {.cdecl, dynlib: dynLibName, importc.}

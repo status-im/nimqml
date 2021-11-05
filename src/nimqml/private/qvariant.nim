@@ -1,3 +1,5 @@
+import json
+
 proc setup*(variant: QVariant) =
   ## Setup a new QVariant
   variant.vptr = dos_qvariant_create()
@@ -29,6 +31,12 @@ proc setup*(variant: QVariant, value: string) =
 proc setup*(variant: QVariant, value: QObject) =
   ## Setup a new QVariant given a QObject
   variant.vptr = dos_qvariant_create_qobject(value.vptr)
+
+proc setup*(variant: QVariant, value: JsonNode) =
+  ## Setup a new QVariant given a QObject
+  echo "SETUP PLES"
+  variant.vptr = dos_qvariant_create_jsonobject(value.addr)
+  echo "DONE"
 
 proc setup*(variant: QVariant, value: DosQVariant, takeOwnership: Ownership) =
   ## Setup a new QVariant given another QVariant.
@@ -78,6 +86,11 @@ proc newQVariant*(value: string): QVariant =
 
 proc newQVariant*(value: QObject): QVariant =
   ## Return a new QVariant given a QObject
+  new(result, delete)
+  result.setup(value)
+
+proc newQVariant*(value: JsonNode): QVariant =
+  ## Return a new QVariant given a JsonNode
   new(result, delete)
   result.setup(value)
 
