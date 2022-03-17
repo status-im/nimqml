@@ -31,7 +31,7 @@ type
   DosQAbstractTableModel = distinct pointer
   DosQAbstractListModel = distinct pointer
   DosQMetaObjectConnection = distinct pointer
-  DosStatusEvent = distinct pointer
+  DosStatusEvent = DosQObject
   DosStatusOSNotification = DosQObject
   DosQSettings = DosQObject
   DosStatusKeychainManager = DosQObject
@@ -357,6 +357,7 @@ proc dos_singleinstance_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, im
 # DosStatusEvent
 proc dos_event_create_showAppEvent(engine: DosQQmlApplicationEngine): DosStatusEvent {.cdecl, dynlib: dynLibName, importc.}
 proc dos_event_create_osThemeEvent(engine: DosQQmlApplicationEngine): DosStatusEvent {.cdecl, dynlib: dynLibName, importc.}
+proc dos_event_create_urlSchemeEvent(): DosStatusEvent {.cdecl, dynlib: dynLibName, importc.}
 proc dos_event_delete(vptr: DosStatusEvent) {.cdecl, dynlib: dynLibName, importc.}
 
 # DosStatusOSNotification
