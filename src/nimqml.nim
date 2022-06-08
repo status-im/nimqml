@@ -37,6 +37,9 @@ include "nimqml/private/status/statusosnotification.nim"
 include "nimqml/private/status/statuskeychainmanager.nim"
 include "nimqml/private/status/statussoundmanager.nim"
 
+proc setupDebugger*(portNumber: int = 54321) =
+  dos_qqmldebuggingenabler_create(portNumber.cint)
+
 proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   var dosqobj = cast[DosQObject](receiver)
   if(dosqobj.isNil == false):

@@ -399,3 +399,6 @@ proc dos_from_local_file(filePath: cstring): cstring
 
 proc dos_app_is_active(engine: DosQQmlApplicationEngine): bool {.cdecl, dynlib: dynLibName, importc.}
 proc dos_app_make_it_active(engine: DosQQmlApplicationEngine) {.cdecl, dynlib: dynLibName, importc.}
+
+# QQmlDebuggingEnabler
+proc dos_qqmldebuggingenabler_create(portNumber: cint) {.cdecl, dynlib: dynLibName, importc.}
