@@ -120,6 +120,8 @@ type
     vptr: DosQUrl
 
   QNetworkConfigurationManager* = ref object of QObject
+
+  QTimer* = ref object of QObject
   
   QNetworkAccessManagerFactory* = ref object of RootObj ## \
     vptr: DosQQNetworkAccessManagerFactory
