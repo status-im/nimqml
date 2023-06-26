@@ -105,6 +105,9 @@ proc disconnect*(self: QObject, connection: QMetaObjectConnection) =
   QObject.disconnect(connection)
 
 proc emit*(qobject: QObject, signalName: string, arguments: openarray[QVariant] = []) =
+  if qobject.vptr.isNil:
+    return
+
   ## Emit the signal with the given name and values
   var dosArguments: seq[DosQVariant] = @[]
   for argument in arguments:
@@ -155,3 +158,4 @@ proc vptr*(self: QObject): DosQObject =
 
 proc signalConnect*(sender: QObject, signal: string, receiver: QObject, slot: string, signalType: int = 0) =
   discard dos_qobject_connect_static(sender.vptr, ("2" & signal).cstring, receiver.vptr, ("1" & slot).cstring, signalType.cint)
+
