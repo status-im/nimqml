@@ -94,6 +94,11 @@ proc newQVariant*(value: QVariant): QVariant =
 proc newQVariant*(value: float): QVariant =
   ## Return a new QVariant given a float
   new(result, delete)
+  result.setup(value.cdouble)
+
+proc newQVariant*(value: float32): QVariant =
+  ## Return a new QVariant given a float
+  new(result, delete)
   result.setup(value.cfloat)
 
 proc isNull*(variant: QVariant): bool =
