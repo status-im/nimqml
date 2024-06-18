@@ -113,6 +113,7 @@ type
     canFetchMore: DosCanFetchMoreCallback
     fetchMore: DosFetchMoreCallback
 
+  DosMessageHandler = proc(messageType: cint, message: cstring, category: cstring, file: cstring, function: cstring, lint: cint) {.cdecl.}
 
 # Conversion
 proc resetToNil[T](x: var T) = x = nil.pointer.T
@@ -430,3 +431,6 @@ proc dos_from_local_file(filePath: cstring): cstring
 
 proc dos_app_is_active(engine: DosQQmlApplicationEngine): bool {.cdecl, dynlib: dynLibName, importc.}
 proc dos_app_make_it_active(engine: DosQQmlApplicationEngine) {.cdecl, dynlib: dynLibName, importc.}
+
+# Common
+proc dos_installMessageHandler(handler: DosMessageHandler) {.cdecl, dynlib: dynLibName, importc.}
