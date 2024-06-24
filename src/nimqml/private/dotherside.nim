@@ -135,6 +135,7 @@ proc dos_qguiapplication_initialize_opengl() {.cdecl, dynlib: dynLibName, import
 proc dos_qtwebview_initialize() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_try_enable_threaded_renderer() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_create() {.cdecl, dynlib: dynLibName, importc.}
+proc dos_register_log_handler(qobject: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_exec() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_quit() {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_restart() {.cdecl, dynlib: dynLibName, importc.}

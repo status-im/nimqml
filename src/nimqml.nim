@@ -43,6 +43,12 @@ proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   if(dosqobj.isNil == false):
     dos_signal(receiver, signal, slot)
 
+proc registerLogHandler*(qobject: pointer) =
+  ## Register the log handler
+  var dosqobj = cast[DosQObject](qobject)
+  if(dosqobj.isNil == false):
+    dos_register_log_handler(dosqobj)
+
 proc image_resizer*(imagePath: string, maxSize: int = 2000, tmpDir: string): string =
   discard existsOrCreateDir(tmpDir)
   let imgResizer = dos_image_resizer(imagePath.cstring, maxSize.cint, tmpDir.cstring)
