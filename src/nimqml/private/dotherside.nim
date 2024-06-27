@@ -113,7 +113,8 @@ type
     canFetchMore: DosCanFetchMoreCallback
     fetchMore: DosFetchMoreCallback
 
-  DosMessageHandler = proc(messageType: cint, message: cstring, category: cstring, file: cstring, function: cstring, lint: cint) {.cdecl.}
+  # DosMessageHandler = proc(messageType: cint, message: cstring, category: cstring, file: cstring, function: cstring, lint: cint) {.cdecl.}
+  DosMessageHandler = proc() {.cdecl.}
 
 # Conversion
 proc resetToNil[T](x: var T) = x = nil.pointer.T
