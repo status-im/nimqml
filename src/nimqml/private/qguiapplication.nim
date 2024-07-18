@@ -75,3 +75,6 @@ proc applicationDirPath*(app: QGuiApplication): string =
   let str = dos_qguiapplication_application_dir_path()
   result = $str
   dos_chararray_delete(str)
+
+proc installMessageHandler*(handler: DosMessageHandler) =
+  dos_installMessageHandler(handler)
