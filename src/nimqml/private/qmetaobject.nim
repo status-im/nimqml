@@ -41,30 +41,30 @@ proc newQMetaObject*(superClass: QMetaObject, className: string,
   result.slots = slots
   result.properties = properties
 
-  var dosParameters: seq[seq[DosParameterDefinition]] = @[]
+  var dosParameters = newSeq[seq[DosParameterDefinition]](signals.len + slots.len)
+  # prevent garbage collector from reclaiming parameter defs in case `dosParameters`
+  # goes out of scope in the C code and thus gets reused for another stack var
+  when compiles(GC_ref(dosParameters)):
+    GC_ref(dosParameters)
 
   var dosSignals: seq[DosSignalDefinition] = @[]
   for i in 0..<signals.len:
-    let name = signals[i].name.cstring
+    let name = result.signals[i].name.cstring
     let parametersCount = signals[i].parameters.len.cint
-    var parameters: seq[DosParameterDefinition] = @[]
-    for p in signals[i].parameters:
-      parameters.add(DosParameterDefinition(name: p.name.cstring, metaType: p.metaType.cint))
-    dosParameters.add(parameters)
-    let dosSignal = DosSignalDefinition(name: name, parametersCount: parametersCount, parameters: if parameters.len > 0: parameters[0].unsafeAddr else: nil)
+    for p in result.signals[i].parameters:
+      dosParameters[i].add(DosParameterDefinition(name: p.name.cstring, metaType: p.metaType.cint))
+    let dosSignal = DosSignalDefinition(name: name, parametersCount: parametersCount, parameters: if dosParameters[i].len > 0: dosParameters[i][0].unsafeAddr else: nil)
     dosSignals.add(dosSignal)
 
   var dosSlots: seq[DosSlotDefinition] = @[]
   for i in 0..<slots.len:
-    let name = slots[i].name.cstring
+    let name = result.slots[i].name.cstring
     let returnMetaType = slots[i].returnMetaType.cint
     let parametersCount = slots[i].parameters.len.cint
-    var parameters: seq[DosParameterDefinition] = @[]
-    for p in slots[i].parameters:
-      parameters.add(DosParameterDefinition(name: p.name.cstring, metaType: p.metaType.cint))
-    dosParameters.add(parameters)
+    for p in result.slots[i].parameters:
+      dosParameters[i + signals.len].add(DosParameterDefinition(name: p.name.cstring, metaType: p.metaType.cint))
     let dosSlot = DosSlotDefinition(name: name, returnMetaType: returnMetaType,
-                                    parametersCount: parametersCount, parameters: if parameters.len > 0: parameters[0].unsafeAddr else: nil)
+                                    parametersCount: parametersCount, parameters: if dosParameters[i + signals.len].len > 0: dosParameters[i + signals.len][0].unsafeAddr else: nil)
     dosSlots.add(dosSlot)
 
   var dosProperties: seq[DosPropertyDefinition] = @[]
@@ -84,3 +84,5 @@ proc newQMetaObject*(superClass: QMetaObject, className: string,
   let properties = DosPropertyDefinitions(count: dosProperties.len.cint, definitions: if dosProperties.len > 0: dosProperties[0].unsafeAddr else: nil)
 
   result.vptr = dos_qmetaobject_create(superClass.vptr, className.cstring, signals.unsafeAddr, slots.unsafeAddr, properties.unsafeAddr)
+  when compiles(GC_unref(dosParameters)):
+    GC_unref(dosParameters)

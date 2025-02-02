@@ -59,12 +59,19 @@ proc setup*(self: QObject) =
   self.owner = true
   self.vptr = dos_qobject_create(addr(self[]), self.metaObject.vptr, qobjectCallback)
 
-
 proc delete*(self: QObject) =
   ## Delete a QObject
   if not self.owner or self.vptr.isNil:
     return
   dos_qobject_delete(self.vptr)
+  self.vptr.resetToNil
+
+proc deleteLater*(self: QObject) =
+  debugMsg("QObject", "deleteLater")
+  ## Delete a QObject
+  if not self.owner or self.vptr.isNil:
+    return
+  dos_qobject_deleteLater(self.vptr)
   self.vptr.resetToNil
 
 proc newQObject*(): QObject =

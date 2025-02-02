@@ -176,11 +176,11 @@ proc `boolVal=`*(variant: QVariant, value: bool) =
 
 proc floatVal*(variant: QVariant): float =
   ## Return the QVariant value as float
-  dos_qvariant_toFloat(variant.vptr).float
+  dos_qvariant_toDouble(variant.vptr).float
 
 proc `floatVal=`*(variant: QVariant, value: float) =
   ## Sets the QVariant float value
-  dos_qvariant_setFloat(variant.vptr, value.cfloat)
+  dos_qvariant_setDouble(variant.vptr, value.cfloat)
 
 proc doubleVal*(variant: QVariant): cdouble =
   ## Return the QVariant value as double
@@ -192,9 +192,7 @@ proc `doubleVal=`*(variant: QVariant, value: cdouble) =
 
 proc stringVal*(variant: QVariant): string =
   ## Return the QVariant value as string
-  var rawCString = dos_qvariant_toString(variant.vptr)
-  result = $rawCString
-  dos_chararray_delete(rawCString)
+  variant.vPtr.toString()
 
 proc `stringVal=`*(variant: QVariant, value: string) =
   ## Sets the QVariant string value

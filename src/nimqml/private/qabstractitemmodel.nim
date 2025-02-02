@@ -62,12 +62,12 @@ method roleNames*(self: QAbstractItemModel): Table[int, string] {.base.} =
   ## Return the model role names
   nil
 
-proc roleNamesCallback(modelPtr: pointer, hash: DosQHashIntByteArray) {.cdecl, exportc.} =
+proc roleNamesCallback(modelPtr: pointer): Table[cint, seq[byte]] {.cdecl, exportc.} =
   debugMsg("QAbstractItemModel", "roleNamesCallback")
   let model = cast[QAbstractItemModel](modelPtr)
   let table = model.roleNames()
   for key, val in table.pairs:
-    dos_qhash_int_qbytearray_insert(hash, key.cint, val.cstring)
+    result.add(key.cint, @(val.toOpenArrayByte(0, val.high())))
 
 method flags*(self: QAbstractItemModel, index: QModelIndex): QtItemFlag {.base.} =
   ## Return the item flags and the given index
@@ -100,7 +100,7 @@ proc createIndex*(self: QAbstractItemModel, row: int, column: int, data: pointer
 method index*(self: QAbstractItemModel, row: int, column: int, parent: QModelIndex): QModelIndex {.base.} =
   doAssert(false, "QAbstractItemModel::index is pure virtual")
 
-proc indexCallback(modelPtr: pointer, row: cint, column: cint, parent: DosQModelIndex, result: DosQModelIndex) {.cdecl, exportc.} =
+proc indexCallback(modelPtr: pointer, row: cint, column: cint, parent: DosQModelIndex, result: var DosQModelIndex) {.cdecl, exportc.} =
   debugMsg("QAbstractItemModel", "indexCallback")
   let model = cast[QAbstractItemModel](modelPtr)
   let index = model.index(row.int, column.int, newQModelIndex(parent, Ownership.Clone))
@@ -109,28 +109,28 @@ proc indexCallback(modelPtr: pointer, row: cint, column: cint, parent: DosQModel
 method parent*(self: QAbstractItemModel, child: QModelIndex): QModelIndex {.base.} =
   doAssert(false, "QAbstractItemModel::parent is pure virtual")
 
-proc parentCallback(modelPtr: pointer, child: DosQModelIndex, result: DosQModelIndex) {.cdecl, exportc.} =
+proc parentCallback(modelPtr: pointer, child: DosQModelIndex, result: var DosQModelIndex) {.cdecl, exportc.} =
   debugMsg("QAbstractItemModel", "parentCallback")
   let model = cast[QAbstractItemModel](modelPtr)
   let index = model.parent(newQModelIndex(child, Ownership.Clone))
   dos_qmodelindex_assign(result, index.vptr)
 
 method hasChildren*(self: QAbstractItemModel, parent: QModelIndex): bool {.base.} =
-  return dos_qabstractitemmodel_hasChildren(self.vptr.DosQAbstractItemModel, parent.vptr.DosQModelIndex)
+  return dos_qabstractitemmodel_hasChildren(self.vptr.DosQAbstractItemModel, parent.vptr)
 
 proc hasChildrenCallback(modelPtr: pointer, parent: DosQModelIndex, result: var bool) {.cdecl, exportc.} =
   let model = cast[QAbstractItemModel](modelPtr)
   result = model.hasChildren(newQModelIndex(parent, Ownership.Clone))
 
 method canFetchMore*(self: QAbstractItemModel, parent: QModelIndex): bool {.base.} =
-  return dos_qabstractitemmodel_canFetchMore(self.vptr.DosQAbstractItemModel, parent.vptr.DosQModelIndex)
+  return dos_qabstractitemmodel_canFetchMore(self.vptr.DosQAbstractItemModel, parent.vptr)
 
 proc canFetchMoreCallback(modelPtr: pointer, parent: DosQModelIndex, result: var bool) {.cdecl, exportc.} =
   let model = cast[QAbstractItemModel](modelPtr)
   result = model.canFetchMore(newQModelIndex(parent, Ownership.Clone))
 
 method fetchMore*(self: QAbstractItemModel, parent: QModelIndex) {.base.} =
-  dos_qabstractitemmodel_fetchMore(self.vptr.DosQAbstractItemModel, parent.vptr.DosQModelIndex)
+  dos_qabstractitemmodel_fetchMore(self.vptr.DosQAbstractItemModel, parent.vptr)
 
 proc fetchMoreCallback(modelPtr: pointer, parent: DosQModelIndex) {.cdecl, exportc.} =
   let model = cast[QAbstractItemModel](modelPtr)
@@ -173,7 +173,7 @@ proc newQAbstractItemModel*(): QAbstractItemModel =
 
 proc hasIndex*(self: QAbstractItemModel, row: int, column: int, parent: QModelIndex): bool =
   debugMsg("QAbstractItemModel", "hasIndex")
-  dos_qabstractitemmodel_hasIndex(self.vptr.DosQAbstractItemModel, row.cint, column.cint, parent.vptr.DosQModelIndex)
+  dos_qabstractitemmodel_hasIndex(self.vptr.DosQAbstractItemModel, row.cint, column.cint, parent.vptr)
 
 proc beginInsertRows*(self: QAbstractItemModel, parentIndex: QModelIndex, first: int, last: int) =
   ## Notify the view that the model is about to inserting the given number of rows
