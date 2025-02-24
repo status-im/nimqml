@@ -40,7 +40,7 @@ type
   DosQSettings = DosQObject
   DosStatusKeychainManager = DosQObject
   DosQTimer = DosQObject
-  
+
   DosParameterDefinition = object
     name: cstring
     metaType: cint
@@ -126,9 +126,7 @@ include notherside
 
 # Status extensions to notherside
 import
-  gen_qnamespace,
-  network/gen_qnetworkaccessmanager,
-  quick/gen_qqmlnetworkaccessmanagerfactory
+  seeqt/[QtCore/gen_qnamespace, qnetworkaccessmanager, qqmlnetworkaccessmanagerfactory]
 
 converter toQNetworkAccessManager*(v: gen_qnetworkaccessmanager_types.QNetworkAccessManager): DosQQNetworkAccessManager =
   DosQQNetworkAccessManager(v.h)
@@ -701,32 +699,32 @@ proc dos_event_create_urlSchemeEvent(): DosStatusEvent {.cdecl, dynlib: dynLibNa
 proc dos_event_delete(vptr: DosStatusEvent) {.cdecl, dynlib: dynLibName, importc.}
 
 # DosStatusOSNotification
-proc dos_osnotification_create(): DosStatusOSNotification 
+proc dos_osnotification_create(): DosStatusOSNotification
   {.cdecl, dynlib: dynLibName, importc.}
 proc dos_osnotification_show_notification(vptr: DosStatusOSNotification,
-  title: cstring, messsage: cstring, identifier: cstring) 
+  title: cstring, messsage: cstring, identifier: cstring)
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_osnotification_show_badge_notification(vptr: DosStatusOSNotification, notificationsCount: int) 
+proc dos_osnotification_show_badge_notification(vptr: DosStatusOSNotification, notificationsCount: int)
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_osnotification_delete(vptr: DosStatusOSNotification) 
+proc dos_osnotification_delete(vptr: DosStatusOSNotification)
   {.cdecl, dynlib: dynLibName, importc.}
 
 # QSettings
-proc dos_qsettings_create(fileName: cstring, format: int): DosQSettings 
+proc dos_qsettings_create(fileName: cstring, format: int): DosQSettings
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qsettings_value(vptr: DosQSettings, key: cstring, 
+proc dos_qsettings_value(vptr: DosQSettings, key: cstring,
   defaultValue: DosQVariant): DosQVariant
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qsettings_set_value(vptr: DosQSettings, key: cstring, 
+proc dos_qsettings_set_value(vptr: DosQSettings, key: cstring,
     value: DosQVariant)
   {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qsettings_remove(vptr: DosQSettings, key: cstring)
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qsettings_delete(vptr: DosQSettings) 
+proc dos_qsettings_delete(vptr: DosQSettings)
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qsettings_begin_group(vptr: DosQSettings, group: cstring) 
+proc dos_qsettings_begin_group(vptr: DosQSettings, group: cstring)
   {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qsettings_end_group(vptr: DosQSettings) 
+proc dos_qsettings_end_group(vptr: DosQSettings)
   {.cdecl, dynlib: dynLibName, importc.}
 
 # QTimer
@@ -750,7 +748,7 @@ proc dos_qtimer_is_active(vptr: DosQTimer): bool
   {.cdecl, dynlib: dynLibName, importc.}
 
 # DosStatusKeychainManager
-proc dos_keychainmanager_create(service: cstring, authenticationReason: cstring): 
+proc dos_keychainmanager_create(service: cstring, authenticationReason: cstring):
   DosStatusKeychainManager
   {.cdecl, dynlib: dynLibName, importc.}
 proc dos_keychainmanager_read_data_sync(vptr: DosStatusKeychainManager,
@@ -761,7 +759,7 @@ proc dos_keychainmanager_store_data_async(vptr: DosStatusKeychainManager,
   key: cstring, data: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_keychainmanager_delete_data_async(vptr: DosStatusKeychainManager,
   key: cstring) {.cdecl, dynlib: dynLibName, importc.}
-proc dos_keychainmanager_delete(vptr: DosStatusKeychainManager) 
+proc dos_keychainmanager_delete(vptr: DosStatusKeychainManager)
   {.cdecl, dynlib: dynLibName, importc.}
 
 # DosStatusSoundManager

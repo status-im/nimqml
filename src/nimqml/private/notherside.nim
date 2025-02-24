@@ -1,20 +1,11 @@
 import
-  gen_qabstractitemdelegate,
-  gen_qabstractitemmodel,
-  gen_qapplication,
-  gen_qmetatype,
-  gen_qmetaobject,
-  gen_qobject,
-  gen_qobjectdefs,
-  gen_qresource,
-  gen_qurl,
-  gen_qvariant,
-  quick/gen_qqmlapplicationengine,
-  quick/gen_qqmlcomponent,
-  quick/gen_qqmlcontext,
-  quick/gen_qquickview
+  seeqt/[
+    qabstractitemdelegate, qabstractitemmodel, qapplication, qmetatype, qmetaobject,
+    qobject, qmetamethod, qresource, qurl, qvariant, qqmlapplicationengine,
+    qqmlcomponent, qqmlcontext, qquickview,
+  ]
 
-import std/[macros, sequtils, strutils, tables], gen_qmetatype, gen_qobjectdefs
+import std/[macros, sequtils, strutils, tables]
 
 from system/ansi_c import c_calloc, c_malloc, c_free
 
@@ -121,12 +112,18 @@ template usizeof(T): untyped =
 func toQtType*(metaType: cint): string =
   # TODO autogenerate - has to be callable from VM
   case metaType
-  of QMetaTypeTypeEnum.Void: "void"
-  of QMetaTypeTypeEnum.Bool: "bool"
-  of QMetaTypeTypeEnum.LongLong: "qlonglong"
-  of QMetaTypeTypeEnum.QString: "QString"
-  of QMetaTypeTypeEnum.QObjectStar: "QObject*"
-  else: raiseAssert "Unknown metatype " & $metaType
+  of QMetaTypeTypeEnum.Void:
+    "void"
+  of QMetaTypeTypeEnum.Bool:
+    "bool"
+  of QMetaTypeTypeEnum.LongLong:
+    "qlonglong"
+  of QMetaTypeTypeEnum.QString:
+    "QString"
+  of QMetaTypeTypeEnum.QObjectStar:
+    "QObject*"
+  else:
+    raiseAssert "Unknown metatype " & $metaType
 
 func isSignal*(m: MethodDef): bool =
   (m.flags and MethodSignal) > 0
