@@ -434,3 +434,4 @@ proc dos_app_make_it_active(engine: DosQQmlApplicationEngine) {.cdecl, dynlib: d
 
 # Common
 proc dos_installMessageHandler(handler: DosMessageHandler) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_qdesktopservices_open_url(url: cstring) {.cdecl, dynlib: dynLibName, importc.}
