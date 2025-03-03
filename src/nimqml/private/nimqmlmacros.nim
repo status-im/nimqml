@@ -142,8 +142,8 @@ proc getPragmas(n: NimNode): seq[string] {.compiletime.} =
     return
   let pragma = pragmas[0]
   for c in pragma:
-    doAssert(c.kind == nnkIdent)
-    result.add($c)
+    if c.kind == nnkIdent:
+      result.add($c)
 
 
 proc extractQObjectTypeDef(head: NimNode): FindQObjectTypeResult {.compiletime.} =
