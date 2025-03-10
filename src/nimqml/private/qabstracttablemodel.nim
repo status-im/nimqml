@@ -1,14 +1,16 @@
-let qAbstractTableModelStaticMetaObjectInstance = newQAbstractTableModelMetaObject()
-
 proc staticMetaObject*(c: type QAbstractTableModel): QMetaObject =
-  ## Return the metaObject of QAbstractTableModel
-  qAbstractTableModelStaticMetaObjectInstance
+  ## Return the metaObject of QObject
+  var instance {.threadvar.}: QMetaObject
+  if instance.isNil():
+    instance = newQAbstractTableModelMetaObject()
+
+  instance
 
 proc staticMetaObject*(self: QAbstractTableModel): QMetaObject =
-  ## Return the metaObject of QAbstractTableModel
-  qAbstractTableModelStaticMetaObjectInstance
+  ## Return the metaObject of QObject
+  typeof(self).staticMetaObject()
 
-method metaObject*(self: QAbstractTableModel): QMetaObject =
+method metaObject*(self: QAbstractTableModel): QMetaObject {.raises: [].} =
   # Return the metaObject
   QAbstractTableModel.staticMetaObject
 

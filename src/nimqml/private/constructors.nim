@@ -1,3 +1,5 @@
+{.push raises: [], gcsafe.}
+
 ############# QObject #############
 proc setup*(self: QObject) 
 proc delete*(self: QObject) =
@@ -205,3 +207,4 @@ proc new(typ: type LambdaInvoker): LambdaInvoker =
   result.lock.initLock()
   result.lambdas = initTable[int, LambdaInvokerProc]()
   
+{.pop.}

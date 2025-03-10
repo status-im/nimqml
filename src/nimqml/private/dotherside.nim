@@ -1,3 +1,5 @@
+{.push raises: [].}
+
 const dynLibName =
   case system.hostOS:
     of "windows":
@@ -303,3 +305,5 @@ proc dos_qabstracttablemodel_create(modelPtr: NimQAbstractTableModel,
                                     qaimCallbacks: DosQAbstractItemModelCallbacks): DosQAbstractTableModel {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qabstracttablemodel_parent(modelPtr: DosQAbstractTableModel, index: DosQModelIndex): DosQModelIndex {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qabstracttablemodel_index(modelPtr: DosQAbstractTableModel, row: cint, column: cint, parent: DosQModelIndex): DosQModelIndex {.cdecl, dynlib: dynLibName, importc.}
+
+{.pop.}

@@ -406,10 +406,18 @@ proc generateMetaObjectInitializer(info: QObjectInfo): NimNode {.compiletime.} =
 
 proc generateMetaObjectAccessors(info: QObjectInfo): NimNode {.compiletime.} =
   ## Generate the metaObject instance and accessors
-  let str = ["let $1StaticMetaObjectInstance: QMetaObject = $1.initializeMetaObjectInstance()".format([info.name])
-    , "proc staticMetaObject*(c: type $1): QMetaObject = $1StaticMetaObjectInstance".format([info.name])
-    , "proc staticMetaObject*(self: $1): QMetaObject = $1StaticMetaObjectInstance".format([info.name])
-    , "method metaObject*(self: $1): QMetaObject = $1StaticMetaObjectInstance".format([info.name])].join("\n")
+  let str = """
+proc staticMetaObject*(c: type $1): QMetaObject =
+  var instance {.threadvar.}: QMetaObject
+  if instance.isNil():
+    instance = $1.initializeMetaObjectInstance()
+
+  instance
+
+proc staticMetaObject*(self: $1): QMetaObject = typeof(self).staticMetaObject()
+method metaObject*(self: $1): QMetaObject {.raises: [].} = typeof(self).staticMetaObject()
+""".format([info.name])
+
   result = parseStmt(str % info.name)
 
 

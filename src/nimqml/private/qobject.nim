@@ -1,12 +1,14 @@
-let qObjectStaticMetaObjectInstance = newQObjectMetaObject()
-
 proc staticMetaObject*(c: type QObject): QMetaObject =
   ## Return the metaObject of QObject
-  qObjectStaticMetaObjectInstance
+  var instance {.threadvar.}: QMetaObject
+  if instance.isNil():
+    instance = newQObjectMetaObject()
+
+  instance
 
 proc staticMetaObject*(self: QObject): QMetaObject =
   ## Return the metaObject of QObject
-  qObjectStaticMetaObjectInstance
+  typeof(self).staticMetaObject()
 
 proc objectName*(self: QObject): string =
   ## Return the QObject name
@@ -22,7 +24,7 @@ proc `objectName=`*(self: QObject, name: string) =
   ## Sets the Qobject name
   self.setObjectName(name)
 
-method metaObject*(self: QObject): QMetaObject {.base.} =
+method metaObject*(self: QObject): QMetaObject {.base, gcsafe, raises: [].} =
   ## Return the metaObject
   QObject.staticMetaObject
 
