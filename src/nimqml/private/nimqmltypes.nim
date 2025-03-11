@@ -143,7 +143,5 @@ type
 
   StatusKeychainManager* = ref object of QObject
 
-  StatusSoundManager* = ref object of RootObj
-    
 const
   UserRole* = 0x100
