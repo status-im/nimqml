@@ -1,10 +1,10 @@
+var qAbstractTableModelinstance {.threadvar.}: QMetaObject
 proc staticMetaObject*(c: type QAbstractTableModel): QMetaObject =
   ## Return the metaObject of QObject
-  var instance {.threadvar.}: QMetaObject
-  if instance.isNil():
-    instance = newQAbstractTableModelMetaObject()
+  if qAbstractTableModelinstance.isNil():
+    qAbstractTableModelinstance = newQAbstractTableModelMetaObject()
 
-  instance
+  qAbstractTableModelinstance
 
 proc staticMetaObject*(self: QAbstractTableModel): QMetaObject =
   ## Return the metaObject of QObject

@@ -407,12 +407,12 @@ proc generateMetaObjectInitializer(info: QObjectInfo): NimNode {.compiletime.} =
 proc generateMetaObjectAccessors(info: QObjectInfo): NimNode {.compiletime.} =
   ## Generate the metaObject instance and accessors
   let str = """
+var $1instance {.threadvar.}: QMetaObject
 proc staticMetaObject*(c: type $1): QMetaObject =
-  var instance {.threadvar.}: QMetaObject
-  if instance.isNil():
-    instance = $1.initializeMetaObjectInstance()
+  if $1instance.isNil():
+    $1instance = $1.initializeMetaObjectInstance()
 
-  instance
+  $1instance
 
 proc staticMetaObject*(self: $1): QMetaObject = typeof(self).staticMetaObject()
 method metaObject*(self: $1): QMetaObject {.raises: [].} = typeof(self).staticMetaObject()

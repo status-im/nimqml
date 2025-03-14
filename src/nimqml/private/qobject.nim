@@ -1,10 +1,10 @@
+var qObjectinstance {.threadvar.}: QMetaObject
 proc staticMetaObject*(c: type QObject): QMetaObject =
   ## Return the metaObject of QObject
-  var instance {.threadvar.}: QMetaObject
-  if instance.isNil():
-    instance = newQObjectMetaObject()
+  if qObjectinstance.isNil():
+    qObjectinstance = newQObjectMetaObject()
 
-  instance
+  qObjectinstance
 
 proc staticMetaObject*(self: QObject): QMetaObject =
   ## Return the metaObject of QObject
