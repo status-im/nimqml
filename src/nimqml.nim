@@ -49,12 +49,6 @@ proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   if(dosqobj.isNil == false):
     dos_signal(receiver, signal, slot)
 
-proc image_resizer*(imagePath: string, maxSize: int = 2000, tmpDir: string): string =
-  discard existsOrCreateDir(tmpDir)
-  let imgResizer = dos_image_resizer(imagePath.cstring, maxSize.cint, tmpDir.cstring)
-  defer: dos_chararray_delete(imgResizer)
-  result = $(imgResizer)
-
 proc plain_text*(htmlString: string): string =
   let plainText = dos_plain_text(htmlString.cstring)
   defer: dos_chararray_delete(plainText)
@@ -92,5 +86,6 @@ proc url_fromLocalFile*(filePath: string): string =
 
 proc app_isActive*(engine: QQmlApplicationEngine): bool =
   result = dos_app_is_active(engine.vptr)
+
 proc app_makeItActive*(engine: QQmlApplicationEngine) =
   dos_app_make_it_active(engine.vptr)
