@@ -32,7 +32,6 @@ type
   DosQAbstractItemModel = distinct pointer
   DosQAbstractTableModel = distinct pointer
   DosQAbstractListModel = distinct pointer
-  DosStatusEvent = DosQObject
   DosStatusOSNotification = DosQObject
   DosQSettings = DosQObject
   DosStatusKeychainManager = DosQObject
@@ -144,7 +143,6 @@ proc dos_qguiapplication_delete() {.cdecl, dynlib: dynLibName, importc.}
 
 proc dos_qguiapplication_clipboard_setText(content: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_clipboard_getText(): cstring {.cdecl, dynlib: dynLibName, importc.}
-proc dos_qguiapplication_installEventFilter(engine: DosStatusEvent) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_clipboard_setImage(content: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_download_image(imageSource: cstring, filePath: cstring) {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qguiapplication_clipboard_setImageByUrl(url: cstring) {.cdecl, dynlib: dynLibName, importc.}
@@ -348,11 +346,6 @@ proc dos_qurl_replaceHostAndAddPath(url: cstring, newScheme: cstring, newHost: c
 proc dos_singleinstance_create(uniqueName: cstring, eventStr: cstring): DosQObject {.cdecl, dynlib: dynLibName, importc.}
 proc dos_singleinstance_isfirst(vptr: DosQObject): bool {.cdecl, dynlib: dynLibName, importc.}
 proc dos_singleinstance_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, importc.}
-
-# DosStatusEvent
-proc dos_event_create_osThemeEvent(engine: DosQQmlApplicationEngine): DosStatusEvent {.cdecl, dynlib: dynLibName, importc.}
-proc dos_event_create_urlSchemeEvent(): DosStatusEvent {.cdecl, dynlib: dynLibName, importc.}
-proc dos_event_delete(vptr: DosStatusEvent) {.cdecl, dynlib: dynLibName, importc.}
 
 # DosStatusOSNotification
 proc dos_osnotification_create(): DosStatusOSNotification 
