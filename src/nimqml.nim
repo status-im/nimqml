@@ -49,6 +49,12 @@ proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   if(dosqobj.isNil == false):
     dos_signal(receiver, signal, slot)
 
+proc save_byte_image_to_file*(imagePath: string, tmpDir: string): string =
+  discard existsOrCreateDir(tmpDir)
+  let imagePath = dos_save_byte_image_to_file(imagePath.cstring, tmpDir.cstring)
+  defer: dos_chararray_delete(imagePath)
+  result = $(imagePath)
+
 proc plain_text*(htmlString: string): string =
   let plainText = dos_plain_text(htmlString.cstring)
   defer: dos_chararray_delete(plainText)
