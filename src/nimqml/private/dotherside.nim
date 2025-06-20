@@ -351,6 +351,7 @@ proc dos_qabstracttablemodel_create(modelPtr: NimQAbstractTableModel,
 proc dos_qabstracttablemodel_parent(modelPtr: DosQAbstractTableModel, index: DosQModelIndex): DosQModelIndex {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qabstracttablemodel_index(modelPtr: DosQAbstractTableModel, row: cint, column: cint, parent: DosQModelIndex): DosQModelIndex {.cdecl, dynlib: dynLibName, importc.}
 
+proc dos_save_byte_image_to_file(imagePath: cstring,tmpDirPath: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
 proc dos_plain_text(htmlString: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
 proc dos_escape_html(input: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qurl_fromUserInput(input: cstring): cstring {.cdecl, dynlib: dynLibName, importc.}
