@@ -49,9 +49,8 @@ proc signal_handler*(receiver: pointer, signal: cstring, slot: cstring) =
   if(dosqobj.isNil == false):
     dos_signal(receiver, signal, slot)
 
-proc save_byte_image_to_file*(imagePath: string, tmpDir: string): string =
-  discard existsOrCreateDir(tmpDir)
-  let imagePath = dos_save_byte_image_to_file(imagePath.cstring, tmpDir.cstring)
+proc save_byte_image_to_file*(imagePath: string): string =
+  let imagePath = dos_save_byte_image_to_file(imagePath.cstring)
   defer: dos_chararray_delete(imagePath)
   result = $(imagePath)
 
