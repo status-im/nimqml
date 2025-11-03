@@ -34,7 +34,6 @@ type
   DosStatusEvent = DosQObject
   DosStatusOSNotification = DosQObject
   DosQSettings = DosQObject
-  DosStatusKeychainManager = DosQObject
   DosQTimer = DosQObject
   
   DosParameterDefinition = object
@@ -414,21 +413,6 @@ proc dos_qtimer_set_single_shot(vptr: DosQTimer, singleShot: bool)
 proc dos_qtimer_is_single_shot(vptr: DosQTimer): bool
   {.cdecl, dynlib: dynLibName, importc.}
 proc dos_qtimer_is_active(vptr: DosQTimer): bool
-  {.cdecl, dynlib: dynLibName, importc.}
-
-# DosStatusKeychainManager
-proc dos_keychainmanager_create(service: cstring, authenticationReason: cstring): 
-  DosStatusKeychainManager
-  {.cdecl, dynlib: dynLibName, importc.}
-proc dos_keychainmanager_read_data_sync(vptr: DosStatusKeychainManager,
-  key: cstring): string {.cdecl, dynlib: dynLibName, importc.}
-proc dos_keychainmanager_read_data_async(vptr: DosStatusKeychainManager,
-  key: cstring) {.cdecl, dynlib: dynLibName, importc.}
-proc dos_keychainmanager_store_data_async(vptr: DosStatusKeychainManager,
-  key: cstring, data: cstring) {.cdecl, dynlib: dynLibName, importc.}
-proc dos_keychainmanager_delete_data_async(vptr: DosStatusKeychainManager,
-  key: cstring) {.cdecl, dynlib: dynLibName, importc.}
-proc dos_keychainmanager_delete(vptr: DosStatusKeychainManager) 
   {.cdecl, dynlib: dynLibName, importc.}
 
 proc dos_to_local_file(fileUrl: cstring): cstring
