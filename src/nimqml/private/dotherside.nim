@@ -129,7 +129,7 @@ proc isNil(x: DosQModelIndex): bool = x.pointer.isNil
 proc isNil(x: DosQMetaObjectConnection): bool = x.pointer.isNil
 
 # CharArray
-proc dos_chararray_delete(str: cstring) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_chararray_delete*(str: cstring) {.cdecl, dynlib: dynLibName, importc.}
 
 # QGuiApplication
 proc dos_qguiapplication_application_dir_path(): cstring {.cdecl, dynlib: dynLibName, importc.}
