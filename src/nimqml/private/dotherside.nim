@@ -365,6 +365,7 @@ proc dos_singleinstance_delete(vptr: DosQObject) {.cdecl, dynlib: dynLibName, im
 # DosStatusEvent
 proc dos_event_create_urlSchemeEvent(): DosStatusEvent {.cdecl, dynlib: dynLibName, importc.}
 proc dos_event_delete(vptr: DosStatusEvent) {.cdecl, dynlib: dynLibName, importc.}
+proc dos_event_set_urlSchemeEvent_instance(vptr: DosStatusEvent) {.cdecl, dynlib: dynLibName, importc.}
 
 # DosStatusOSNotification
 proc dos_osnotification_create(): DosStatusOSNotification 
