@@ -27,6 +27,10 @@ proc quit*(self: QGuiApplication) =
   ## Quit the Qt event loop
   dos_qguiapplication_quit()
 
+proc exit*(self: QGuiApplication) =
+  ## Exit the Qt event loop
+  dos_qguiapplication_exit()
+
 proc restartApplication*() =
   ## Restart the app
   dos_qguiapplication_restart()
