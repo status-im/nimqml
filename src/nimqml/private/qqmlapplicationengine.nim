@@ -26,7 +26,13 @@ proc addImportPath*(self: QQmlApplicationEngine, path: string) =
 
 proc setRootContextProperty*(self: QQmlApplicationEngine, name: string, value: QVariant) =
   ## Set a root context property
+  if self.isNil or self.vptr.isNil:
+    return
+  if value.isNil or value.vptr.isNil:
+    return
   let context = dos_qqmlapplicationengine_context(self.vptr)
+  if context.isNil:
+    return
   dos_qqmlcontext_setcontextproperty(context, name.cstring, value.vptr)
 
 proc setTranslationPackage*(self: QQmlApplicationEngine, packagePath: string, shouldRetranslate: bool = true) =
