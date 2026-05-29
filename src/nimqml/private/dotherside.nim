@@ -121,6 +121,7 @@ proc isNil(x: DosQMetaObject): bool = x.pointer.isNil
 proc isNil(x: DosQVariant): bool = x.pointer.isNil
 proc isNil(x: DosQObject): bool = x.pointer.isNil
 proc isNil(x: DosQQmlApplicationEngine): bool = x.pointer.isNil
+proc isNil(x: DosQQmlContext): bool = x.pointer.isNil
 proc isNil(x: DosQUrl): bool = x.pointer.isNil
 proc isNil(x: DosQQuickView): bool = x.pointer.isNil
 proc isNil(x: DosQHashIntByteArray): bool = x.pointer.isNil
